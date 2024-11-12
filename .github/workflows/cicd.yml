@@ -73,7 +73,7 @@ jobs:
             cd /home/ubuntu/ &&
             curl -fsSL https://deb.nodesource.com/setup_lts.x | sudo -E bash - &&
             
-            sudo apt-get install -y nodej  &&
+            sudo apt-get install -y nodejs  &&
             # Install dependencies and build the app
             sudo npm install 
             '
