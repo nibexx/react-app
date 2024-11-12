@@ -2,7 +2,7 @@ name: Build and Deploy React App to EC2
 on:
   push:
     branches:
-      - main  # Trigger on push to the main branchh
+      - main  # Trigger on push to the main branchhh
 
 jobs:
   # Job 1: Build the React app
