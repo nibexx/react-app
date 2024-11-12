@@ -33,51 +33,5 @@ jobs:
           name: react-build
           path: build
 
-  # Job 2: Deploy the React app to EC2
-  deploy:
-    runs-on: ubuntu-latest
-    needs: build  # This ensures deploy job only runs after build job successfully completes
-    name: Deploy to EC2
 
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v3
-
-      - name: Download build artifacts
-        uses: actions/download-artifact@v3
-        with:
-          name: react-build
-
-      - name: Build & Deploy to EC2
-        env:
-          PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}  # The private SSH key for accessing EC2
-          HOSTNAME: ${{ secrets.SSH_HOST }}           # The EC2 instance IP or hostname
-          USER_NAME: ${{ secrets.USER_NAME }}         # The SSH username for the EC2 instance (e.g., ec2-user, ubuntu)
-        run: |
-          # Save the private SSH key to a file and set appropriate permissions
-          echo "$PRIVATE_KEY" > private_key && chmod 600 private_key
-
-          # SSH into EC2 and perform the deployment steps
-          ssh -o StrictHostKeyChecking=no -i private_key ${USER_NAME}@${HOSTNAME} '
-            # Navigate to the project directory on EC2 (replace with actual path)
-            cd /home/ubuntu/<PROJECT_DIRECTORY> &&
-            
-            # Ensure we're on the correct branch and pull the latest changes
-            git checkout dev &&
-            git fetch --all &&
-            git reset --hard origin/dev &&
-            git pull origin dev &&
-            
-            # Install dependencies and build the app
-            sudo npm install &&
-            sudo npm run build &&
-            
-            # Clean up old build files
-            sudo rm -rf /var/www/html/* &&
-            
-            # Copy the new build to the web server directory
-            sudo cp -r /home/ubuntu/<PROJECT_DIRECTORY>/build/* /var/www/html/ &&
-            
-            # Restart the Nginx server (or your chosen web server)
-            sudo systemctl restart nginx
           '
