@@ -71,10 +71,18 @@ jobs:
           # SSH into EC2 and perform the deployment steps
           ssh -o StrictHostKeyChecking=no -i private_key ${USER_NAME}@${HOSTNAME} '
             # Navigate to the project directory on EC2 (replace with actual path)
-            cd /home/ubuntu/my-application/my-app &&
             
-            npm install &&
-            npm run build &&
+            sudo rm -rf /usr/share/nginx/html/* &&
+            
+            # Copy the new build to the Nginx web server directory
+            sudo cp -r /home/ubuntu/my-application/* /usr/share/nginx/html/ &&
+            
+            # Ensure Nginx has permission to serve these files
+            sudo chown -R www-data:www-data /usr/share/nginx/html &&
+            
+            # Restart Nginx to serve the updated app
+            sudo systemctl restart nginx
+
 
             mkdir alona
     
