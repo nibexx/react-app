@@ -66,15 +66,14 @@ jobs:
         run: |
           # Save the private SSH key to a file and set appropriate permissions
           echo "$PRIVATE_KEY" > private_key && chmod 600 private_key
+          
+          scp -o StrictHostKeyChecking=no -i private_key -r ./react-build/* ${USER_NAME}@${HOSTNAME}:/home/ubuntu/my-app
 
           # SSH into EC2 and perform the deployment steps
           ssh -o StrictHostKeyChecking=no -i private_key ${USER_NAME}@${HOSTNAME} '
             # Navigate to the project directory on EC2 (replace with actual path)
-            cd /home/ubuntu/ &&
+            cd /home/ubuntu/my-app &&
             curl -fsSL https://deb.nodesource.com/setup_lts.x | sudo -E bash - &&
-            
-            sudo apt-get install -y nodejs  &&
-            # Install dependencies and build the app
-            sudo npm install 
+    
             '
 
