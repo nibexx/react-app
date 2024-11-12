@@ -56,4 +56,22 @@ jobs:
           aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
           aws-secret-access-key: ${{ secrets.AWS_ACCESS_KEY_PWD }}
           aws-region: us-west-2
-      
+          
+      - name: Build & Deploy to EC2
+        env:
+          PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}  # The private SSH key for accessing EC2
+          HOSTNAME: ${{ secrets.SSH_HOST }}           # The EC2 instance IP or hostname
+          USER_NAME: ${{ secrets.USER_NAME }}         # The SSH username for the EC2 instance (e.g., ec2-user, ubuntu)
+        run: |
+          # Save the private SSH key to a file and set appropriate permissions
+          echo "$PRIVATE_KEY" > private_key && chmod 600 private_key
+
+          # SSH into EC2 and perform the deployment steps
+          ssh -o StrictHostKeyChecking=no -i private_key ${USER_NAME}@${HOSTNAME} '
+            # Navigate to the project directory on EC2 (replace with actual path)
+            cd /home/ubuntu/<PROJECT_DIRECTORY> &&
+            
+            # Install dependencies and build the app
+            sudo npm install &&
+            '
+
