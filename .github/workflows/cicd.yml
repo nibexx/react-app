@@ -73,7 +73,7 @@ jobs:
           ssh -o StrictHostKeyChecking=no -i private_key ${USER_NAME}@${HOSTNAME} '
             # Navigate to the project directory on EC2 (replace with actual path)
             cd /home/ubuntu/my-app &&
-            curl -fsSL https://deb.nodesource.com/setup_lts.x | sudo -E bash - &&
+            mkdir alona
     
             '
 
