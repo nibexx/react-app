@@ -4,6 +4,7 @@ on:
     branches:
       - main  # Trigger on push to the main branch
 
+
 jobs:
   # Job 1: Build the React app
   build:
