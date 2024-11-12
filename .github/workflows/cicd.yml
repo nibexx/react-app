@@ -50,8 +50,7 @@ jobs:
         uses: actions/download-artifact@v3
         with:
           name: react-build
-      - name: List downloaded files
-        run: ls -R ./react-build 
+      
         
       - name: Set up AWS credentials
         uses: aws-actions/configure-aws-credentials@v1
@@ -69,7 +68,7 @@ jobs:
           # Save the private SSH key to a file and set appropriate permissions
           echo "$PRIVATE_KEY" > private_key && chmod 600 private_key
           
-          scp -o StrictHostKeyChecking=no -i private_key -r ./react-build/* ${USER_NAME}@${HOSTNAME}:/home/ubuntu/my-app
+          scp -o StrictHostKeyChecking=no -i private_key -r /home/runner/work/rect-ipro/rect-ipro/* ${USER_NAME}@${HOSTNAME}:/home/ubuntu/my-app
 
           # SSH into EC2 and perform the deployment steps
           ssh -o StrictHostKeyChecking=no -i private_key ${USER_NAME}@${HOSTNAME} '
