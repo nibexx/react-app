@@ -71,7 +71,9 @@ jobs:
           ssh -o StrictHostKeyChecking=no -i private_key ${USER_NAME}@${HOSTNAME} '
             # Navigate to the project directory on EC2 (replace with actual path)
             cd /home/ubuntu/ &&
-            sudo apt install -y nodejs &&
+            curl -fsSL https://deb.nodesource.com/setup_lts.x | sudo -E bash - &&
+            
+            sudo apt-get install -y nodej  &&
             # Install dependencies and build the app
             sudo npm install 
             '
