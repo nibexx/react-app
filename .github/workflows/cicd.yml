@@ -73,6 +73,6 @@ jobs:
             cd /home/ubuntu/ &&
             
             # Install dependencies and build the app
-            sudo npm install &&
+            sudo npm install 
             '
 
