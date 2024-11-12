@@ -68,12 +68,12 @@ jobs:
           # Save the private SSH key to a file and set appropriate permissions
           echo "$PRIVATE_KEY" > private_key && chmod 600 private_key
           
-          scp -o StrictHostKeyChecking=no -i private_key -r /home/runner/work/rect-ipro/rect-ipro/* ${USER_NAME}@${HOSTNAME}:/home/ubuntu/my-app
+          scp -o StrictHostKeyChecking=no -i private_key -r /home/runner/work/rect-ipro/rect-ipro/* ${USER_NAME}@${HOSTNAME}:/home/ubuntu/my-application
 
           # SSH into EC2 and perform the deployment steps
           ssh -o StrictHostKeyChecking=no -i private_key ${USER_NAME}@${HOSTNAME} '
             # Navigate to the project directory on EC2 (replace with actual path)
-            cd /home/ubuntu/my-app &&
+            cd /home/ubuntu/my-application &&
             mkdir alona
     
             '
