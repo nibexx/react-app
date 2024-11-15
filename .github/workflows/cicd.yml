@@ -14,12 +14,12 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v3
-
+      
       - name: Set up Node.js
         uses: actions/setup-node@v3
         with:
           node-version: '16'
-
+      
       - name: Install dependencies
         run: |
           cd my-app
@@ -63,14 +63,14 @@ jobs:
           HOSTNAME: ${{ secrets.SSH_HOST }}           # The EC2 instance IP or hostname
           USER_NAME: ${{ secrets.USER_NAME }}         # The SSH username for the EC2 instance (e.g., ec2-user, ubuntu)
         run: |
-          # Save the private SSH key to a file and set appropriate permissions
+          # Save the private SSH 
           echo "$PRIVATE_KEY" > private_key && chmod 600 private_key
           
           scp -o StrictHostKeyChecking=no -i private_key -r /home/runner/work/rect-ipro/rect-ipro/* ${USER_NAME}@${HOSTNAME}:/home/ubuntu/my-application
 
           # SSH into EC2 and perform the deployment steps
           ssh -o StrictHostKeyChecking=no -i private_key ${USER_NAME}@${HOSTNAME} '
-            # Navigate to the project directory on EC2 (replace with actual path)
+            # Navigate to the project directory on EC2
             
             sudo rm -rf /usr/share/nginx/html/* &&
             
