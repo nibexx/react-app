@@ -9,7 +9,7 @@ function App() {
         <p>
           This is a sample react application to test github action template.
         </p>
-        <p>sample</p>
+        
         <a
           className="App-link"
           href="https://reactjs.org"
