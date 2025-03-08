@@ -7,7 +7,7 @@ function App() {
       <header className="App-header">
         <img src={logo} className="App-logo" alt="logo" />
         <p>
-          This is a sample react application to test github action template.
+          This is a sample react application created by ebin.
         </p>
         <p>sample test</p>
         <a
