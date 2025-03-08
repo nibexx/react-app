@@ -7,7 +7,7 @@ function App() {
       <header className="App-header">
         <img src={logo} className="App-logo" alt="logo" />
         <p>
-          This is a sample react application created by ebin.
+          This is a sample react application created by ebin for testig purpose.
         </p>
         <p>sample test</p>
         <a
